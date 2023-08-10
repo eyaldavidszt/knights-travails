@@ -42,7 +42,7 @@ function Square(coordinates) {
 }
 function knightMoves(squareCoordinates, targetSquare, pastSquares = []) {
   let shortest = [];
-  if (pastSquares.length > 5) return pastSquares;
+  if (pastSquares.length > 8) return pastSquares;
   pastSquares.push(squareCoordinates);
   const square = Square(squareCoordinates);
   if (`${square.coordinates}` === `${targetSquare}`) {
@@ -66,7 +66,7 @@ function knightMoves(squareCoordinates, targetSquare, pastSquares = []) {
   return shortest;
 }
 
-const moves = knightMoves([6, 3], [5, 6]);
+const moves = knightMoves([8, 1], [1, 8]);
 
 console.log(
   `You made it in ${moves.length - 1} moves! Your path was: ${moves.join(
