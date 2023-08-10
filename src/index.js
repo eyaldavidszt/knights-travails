@@ -1,46 +1,70 @@
-import Chessboard from "./chessboard";
+function Square(coordinates) {
+  const max = 64;
+  const min = 1;
+  const square = { coordinates };
+  // write the code for this:
+  // coordinates is an array, 0 is rank and 1 is file
 
-class Square {
-  constructor(coordinates) {
-    this.coordinates = coordinates;
-    this.knightMove1 = null;
-    this.knightMove2 = null;
-    this.knightMove3 = null;
-    this.knightMove4 = null;
-    this.knightMove5 = null;
-    this.knightMove6 = null;
-    this.knightMove7 = null;
-    this.knightMove8 = null;
+  function makeKnightMove(x, y) {
+    if (coordinates[0] + x <= max && coordinates[0] + x >= min) {
+      if (coordinates[1] + y <= max && coordinates[1] + y >= min) {
+        return [coordinates[0] + x, coordinates[1] + y];
+      }
+    }
+    return null;
   }
+  if (makeKnightMove(2, 1)) {
+    square.knightMove1 = makeKnightMove(2, 1);
+  }
+  if (makeKnightMove(2, -1)) {
+    square.knightMove2 = makeKnightMove(2, -1);
+  }
+  if (makeKnightMove(-2, -1)) {
+    square.knightMove3 = makeKnightMove(-2, -1);
+  }
+  if (makeKnightMove(-2, 1)) {
+    square.knightMove4 = makeKnightMove(-2, 1);
+  }
+  if (makeKnightMove(1, 2)) {
+    square.knightMove5 = makeKnightMove(1, 2);
+  }
+  if (makeKnightMove(1, -2)) {
+    square.knightMove6 = makeKnightMove(1, -2);
+  }
+  if (makeKnightMove(-1, 2)) {
+    square.knightMove7 = makeKnightMove(-1, 2);
+  }
+  if (makeKnightMove(-1, -2)) {
+    square.knightMove8 = makeKnightMove(-1, -2);
+  }
+
+  return square;
+}
+function knightMoves(squareCoordinates, targetSquare, pastSquares = []) {
+  let shortest = [];
+  if (pastSquares.length > 5) return pastSquares;
+  pastSquares.push(squareCoordinates);
+  const square = Square(squareCoordinates);
+  if (`${square.coordinates}` === `${targetSquare}`) {
+    return pastSquares;
+  }
+  const properties = Object.values(square);
+  for (let i = 1; i < properties.length; i += 1) {
+    if (`${properties[i]}` === `${targetSquare}`) {
+      pastSquares.push(properties[i]);
+      return pastSquares;
+    }
+    const pastSquaresCopy = [...pastSquares];
+    const current = [...knightMoves(properties[i], targetSquare, pastSquares)];
+    pastSquares = pastSquaresCopy;
+    if (shortest.length === 0 && current.length !== 0) {
+      shortest = [...current];
+    } else if (current.length < shortest.length && current.length !== 0) {
+      shortest = [...current];
+    }
+  }
+  return shortest;
 }
 
-function knightMoves(square, targetSquare, pastSquares = []) {
-  // pastmoves.push current square coordinates
-  if (square === targetSquare) {
-    return square;
-  }
-  return pastSquares;
-}
-// square, a bunch of different pointers to squares that are knight moves away. ok ok ok ok
-
-// class Square {
-//   max = 64;
-
-//   min = 1;
-
-//   constructor([rank, file]) {
-//     // add base case
-//     if (Chessboard.find([rank, file])) return;
-//     this.coordinates = [rank, file];
-//     if (rank + 2 <= this.max) {
-//       if (file + 1 <= this.max) {
-//         this.knightMove1 = new Square([rank + 2, file + 1]);
-//       }
-//       if (file - 1 >= this.min) {
-//         this.knightMove2 = new Square([rank + 2, file - 1]);
-//       }
-//     }
-//   }
-// }
-// const squares = new Square([1, 1]);
-// Chessboard.append(squares);
+const moves = knightMoves([1, 1], [4, 5]);
+console.log(moves);
