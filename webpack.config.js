@@ -1,13 +1,12 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+import { resolve } from "path";
+// eslint-disable-next-line import/no-extraneous-dependencies
+import HtmlWebpackPlugin from "html-webpack-plugin";
 
-module.exports = {
-  devtool: "inline-source-map",
-  mode: "development",
-  entry: "./src/index.js",
-  output: {
-    path: path.resolve(__dirname, "./dist"),
-    filename: "index_bundle.js",
-  },
-  plugins: [new HtmlWebpackPlugin()],
+export const devtool = "inline-source-map";
+export const mode = "development";
+export const entry = "./src/index.js";
+export const output = {
+  path: resolve(__dirname, "./dist"),
+  filename: "index_bundle.js",
 };
+export const plugins = [new HtmlWebpackPlugin()];
