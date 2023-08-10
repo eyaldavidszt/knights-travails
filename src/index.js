@@ -66,7 +66,7 @@ function knightMoves(squareCoordinates, targetSquare, pastSquares = []) {
   return shortest;
 }
 
-const moves = knightMoves([8, 1], [6, 4]);
+const moves = knightMoves([6, 3], [5, 6]);
 
 console.log(
   `You made it in ${moves.length - 1} moves! Your path was: ${moves.join(
