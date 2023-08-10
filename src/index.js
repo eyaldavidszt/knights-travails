@@ -1,5 +1,5 @@
 function Square(coordinates) {
-  const max = 64;
+  const max = 8;
   const min = 1;
   const square = { coordinates };
   // write the code for this:
@@ -66,7 +66,7 @@ function knightMoves(squareCoordinates, targetSquare, pastSquares = []) {
   return shortest;
 }
 
-const moves = knightMoves([1, 1], [4, 4]);
+const moves = knightMoves([8, 1], [6, 4]);
 
 console.log(
   `You made it in ${moves.length - 1} moves! Your path was: ${moves.join(
