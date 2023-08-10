@@ -66,5 +66,10 @@ function knightMoves(squareCoordinates, targetSquare, pastSquares = []) {
   return shortest;
 }
 
-const moves = knightMoves([1, 1], [4, 5]);
-console.log(moves);
+const moves = knightMoves([1, 1], [4, 4]);
+
+console.log(
+  `You made it in ${moves.length - 1} moves! Your path was: ${moves.join(
+    " - "
+  )}`
+);
