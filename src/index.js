@@ -70,7 +70,7 @@ function knightMoves(squareCoordinates, targetSquare, queue = []) {
   }
 }
 
-const moves = knightMoves([1, 8], [8, 1]);
+const moves = knightMoves([2, 6], [3, 6]);
 console.log(
   `You made it in ${moves.length - 1} moves! Your path was: ${moves.join(
     " - "
