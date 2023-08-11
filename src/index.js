@@ -52,6 +52,7 @@ function makeArray(item) {
   arr.push(item.coordinates);
   return arr;
 }
+// eslint-disable-next-line consistent-return
 function knightMoves(squareCoordinates, targetSquare, queue = []) {
   const square = Square(squareCoordinates);
   queue.push(square);
@@ -71,6 +72,7 @@ function knightMoves(squareCoordinates, targetSquare, queue = []) {
 }
 
 const moves = knightMoves([2, 6], [3, 6]);
+// eslint-disable-next-line no-console
 console.log(
   `You made it in ${moves.length - 1} moves! Your path was: ${moves.join(
     " - "
