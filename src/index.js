@@ -61,16 +61,16 @@ function knightMoves(squareCoordinates, targetSquare, queue = []) {
       // construct array recursively with parents
       return makeArray(item);
     }
-    const movesies = item.movesArr;
+    const childMoves = item.movesArr;
     // eslint-disable-next-line no-restricted-syntax
-    for (const move of movesies) {
+    for (const move of childMoves) {
       const child = Square(move, item);
       queue.push(child);
     }
   }
 }
 
-const moves = knightMoves([2, 6], [5, 3]);
+const moves = knightMoves([1, 8], [8, 1]);
 console.log(
   `You made it in ${moves.length - 1} moves! Your path was: ${moves.join(
     " - "
