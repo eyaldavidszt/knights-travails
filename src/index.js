@@ -59,7 +59,6 @@ function knightMoves(squareCoordinates, targetSquare, queue = []) {
   for (const item of queue) {
     if (`${item.coordinates}` === `${targetSquare}`) {
       // construct array recursively with parents
-      console.log({ item });
       return makeArray(item);
     }
     const movesies = item.movesArr;
@@ -71,8 +70,7 @@ function knightMoves(squareCoordinates, targetSquare, queue = []) {
   }
 }
 
-const moves = knightMoves([8, 1], [1, 8]);
-console.log(moves);
+const moves = knightMoves([2, 6], [5, 3]);
 console.log(
   `You made it in ${moves.length - 1} moves! Your path was: ${moves.join(
     " - "
