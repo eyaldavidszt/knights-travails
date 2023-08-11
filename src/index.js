@@ -1,7 +1,8 @@
-function Square(coordinates) {
+function Square(coordinates, parent = null) {
   const max = 8;
   const min = 1;
-  const square = { coordinates };
+  const square = { coordinates, parent };
+  square.movesArr = [];
   // write the code for this:
   // coordinates is an array, 0 is rank and 1 is file
 
@@ -14,60 +15,63 @@ function Square(coordinates) {
     return null;
   }
   if (makeKnightMove(2, 1)) {
-    square.knightMove1 = makeKnightMove(2, 1);
+    square.movesArr.push(makeKnightMove(2, 1));
   }
   if (makeKnightMove(2, -1)) {
-    square.knightMove2 = makeKnightMove(2, -1);
+    square.movesArr.push(makeKnightMove(2, -1));
   }
   if (makeKnightMove(-2, -1)) {
-    square.knightMove3 = makeKnightMove(-2, -1);
+    square.movesArr.push(makeKnightMove(-2, -1));
   }
   if (makeKnightMove(-2, 1)) {
-    square.knightMove4 = makeKnightMove(-2, 1);
+    square.movesArr.push(makeKnightMove(-2, 1));
   }
   if (makeKnightMove(1, 2)) {
-    square.knightMove5 = makeKnightMove(1, 2);
+    square.movesArr.push(makeKnightMove(1, 2));
   }
   if (makeKnightMove(1, -2)) {
-    square.knightMove6 = makeKnightMove(1, -2);
+    square.movesArr.push(makeKnightMove(1, -2));
   }
   if (makeKnightMove(-1, 2)) {
-    square.knightMove7 = makeKnightMove(-1, 2);
+    square.movesArr.push(makeKnightMove(-1, 2));
   }
   if (makeKnightMove(-1, -2)) {
-    square.knightMove8 = makeKnightMove(-1, -2);
+    square.movesArr.push(makeKnightMove(-1, -2));
   }
-
   return square;
 }
-function knightMoves(squareCoordinates, targetSquare, pastSquares = []) {
-  let shortest = [];
-  if (pastSquares.length > 8) return pastSquares;
-  pastSquares.push(squareCoordinates);
+
+// util function:
+function makeArray(item) {
+  const arr = [];
+  if (item.parent === null) {
+    return item.coordinates;
+  }
+  arr.unshift(makeArray(item.parent));
+  arr.push(item.coordinates);
+  return arr;
+}
+function knightMoves(squareCoordinates, targetSquare, queue = []) {
   const square = Square(squareCoordinates);
-  if (`${square.coordinates}` === `${targetSquare}`) {
-    return pastSquares;
-  }
-  const properties = Object.values(square);
-  for (let i = 1; i < properties.length; i += 1) {
-    if (`${properties[i]}` === `${targetSquare}`) {
-      pastSquares.push(properties[i]);
-      return pastSquares;
+  queue.push(square);
+  // eslint-disable-next-line no-restricted-syntax
+  for (const item of queue) {
+    if (`${item.coordinates}` === `${targetSquare}`) {
+      // construct array recursively with parents
+      console.log({ item });
+      return makeArray(item);
     }
-    const pastSquaresCopy = [...pastSquares];
-    const current = [...knightMoves(properties[i], targetSquare, pastSquares)];
-    pastSquares = pastSquaresCopy;
-    if (shortest.length === 0 && current.length !== 0) {
-      shortest = [...current];
-    } else if (current.length < shortest.length && current.length !== 0) {
-      shortest = [...current];
+    const movesies = item.movesArr;
+    // eslint-disable-next-line no-restricted-syntax
+    for (const move of movesies) {
+      const child = Square(move, item);
+      queue.push(child);
     }
   }
-  return shortest;
 }
 
 const moves = knightMoves([8, 1], [1, 8]);
-
+console.log(moves);
 console.log(
   `You made it in ${moves.length - 1} moves! Your path was: ${moves.join(
     " - "
