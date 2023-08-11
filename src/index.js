@@ -43,11 +43,12 @@ function Square(coordinates, parent = null) {
 
 // util function:
 function makeArray(item) {
-  const arr = [];
+  let arr = [];
   if (item.parent === null) {
-    return item.coordinates;
+    return [item.coordinates];
   }
-  arr.unshift(makeArray(item.parent));
+  // arr.unshift(makeArray(item.parent));
+  arr = [...makeArray(item.parent)];
   arr.push(item.coordinates);
   return arr;
 }
